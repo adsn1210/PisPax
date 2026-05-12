@@ -1,0 +1,40 @@
+# Maven / Spring Boot
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.log
+.mvn/
+mvnw
+mvnw.cmd
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.classpath
+.project
+.settings/
+*.suo
+*.user
+*.swp
+
+# Android Studio
+pispax-android/.gradle/
+pispax-android/build/
+pispax-android/local.properties
+pispax-android/*.iml
+pispax-android/.idea/
+pispax-android/app/build/
+
+# Credentials / secrets
+application-prod.properties
+*.env
+.env
+
+# OS
+desktop.ini
+.DS_Store
+Thumbs.db
