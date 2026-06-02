@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- MapaViajeActivity: mapa OSMDroid (parte superior) + timeline de estados. -->
+<!-- Botón "Iniciar simulación" que llama a POST /api/viajes/{id}/simular. -->
+<!-- TODO: diseño pendiente (ver PLANTEAMIENTO_SIMULACION_VIAJE.md) -->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_gris">
+</androidx.constraintlayout.widget.ConstraintLayout>

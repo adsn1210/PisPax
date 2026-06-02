@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PisPax API</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0f1117;
+      color: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    .card {
+      background: #1a1d27;
+      border: 1px solid #2d3148;
+      border-radius: 16px;
+      padding: 2.5rem 3rem;
+      max-width: 520px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .logo {
+      font-size: 2.4rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 0.25rem;
+    }
+    .logo span { color: #6c63ff; }
+
+    .subtitle {
+      font-size: 0.85rem;
+      color: #64748b;
+      margin-bottom: 2rem;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1.2rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      background: #14290f;
+      border: 1px solid #22c55e44;
+      color: #22c55e;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #22c55e;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(0.85); }
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .info-item {
+      background: #12151e;
+      border: 1px solid #2d3148;
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      text-align: left;
+    }
+    .info-item .label {
+      font-size: 0.7rem;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.2rem;
+    }
+    .info-item .value {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #cbd5e1;
+    }
+
+    .endpoints {
+      text-align: left;
+    }
+    .endpoints h3 {
+      font-size: 0.75rem;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+    .endpoint-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .endpoint-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.82rem;
+    }
+    .method {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      min-width: 40px;
+      text-align: center;
+    }
+    .post { background: #1e3a5f; color: #60a5fa; }
+    .get  { background: #14290f; color: #4ade80; }
+    .put  { background: #2d1f00; color: #fbbf24; }
+
+    .path { color: #94a3b8; font-family: 'Cascadia Code', 'Fira Code', monospace; }
+
+    footer {
+      font-size: 0.75rem;
+      color: #334155;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="logo">Pis<span>Pax</span></div>
+    <div class="subtitle">REST API · Spring Boot 3.2 · Puerto 8080</div>
+
+    <div class="status-badge">
+      <div class="dot"></div>
+      Servidor activo
+    </div>
+
+    <div class="info-grid">
+      <div class="info-item">
+        <div class="label">Versión</div>
+        <div class="value">1.0.0-SNAPSHOT</div>
+      </div>
+      <div class="info-item">
+        <div class="label">Entorno</div>
+        <div class="value">Desarrollo</div>
+      </div>
+      <div class="info-item">
+        <div class="label">Base de datos</div>
+        <div class="value">MySQL 8</div>
+      </div>
+      <div class="info-item">
+        <div class="label">Autenticación</div>
+        <div class="value">JWT / BCrypt</div>
+      </div>
+    </div>
+
+    <div class="endpoints">
+      <h3>Endpoints principales</h3>
+      <ul class="endpoint-list">
+        <li><span class="method post">POST</span><span class="path">/api/auth/registro</span></li>
+        <li><span class="method post">POST</span><span class="path">/api/auth/login</span></li>
+        <li><span class="method post">POST</span><span class="path">/api/viajes</span></li>
+        <li><span class="method get" >GET </span><span class="path">/api/viajes/disponibles</span></li>
+        <li><span class="method put" >PUT </span><span class="path">/api/viajes/{id}/aceptar</span></li>
+        <li><span class="method put" >PUT </span><span class="path">/api/viajes/{id}/estado</span></li>
+        <li><span class="method post">POST</span><span class="path">/api/vehiculos</span></li>
+        <li><span class="method get" >GET </span><span class="path">/api/tipo-mercancia</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <footer>TFG DAM 2025/2026 · Adrián Salazar</footer>
+
+</body>
+</html>

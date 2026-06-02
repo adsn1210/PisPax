@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Pispax" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/naranja_principal</item>
+        <item name="colorPrimaryVariant">@color/navy_secundario</item>
+        <item name="colorOnPrimary">@color/blanco</item>
+        <item name="colorSecondary">@color/navy_secundario</item>
+        <item name="colorOnSecondary">@color/blanco</item>
+        <item name="android:statusBarColor">@color/navy_secundario</item>
+        <item name="android:windowBackground">@color/bg_gris</item>
+    </style>
+
+    <!-- Tema de la SplashActivity: fondo naranja, sin barra de estado visible -->
+    <style name="Theme.Pispax.Splash" parent="Theme.Pispax">
+        <item name="android:windowBackground">@color/naranja_principal</item>
+        <item name="android:statusBarColor">@color/naranja_principal</item>
+    </style>
+
+</resources>
