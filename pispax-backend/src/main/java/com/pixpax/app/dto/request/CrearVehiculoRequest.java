@@ -1,5 +1,8 @@
 package com.pixpax.app.dto.request;
 
+// Datos que manda el transportista cuando quiere registrar un nuevo vehículo.
+// Solo lo puede usar un TRANSPORTISTA. La matrícula se convierte a mayúsculas en el servicio.
+
 import com.pixpax.app.enums.CarnetRequerido;
 import com.pixpax.app.enums.TipoVehiculo;
 import jakarta.validation.constraints.*;

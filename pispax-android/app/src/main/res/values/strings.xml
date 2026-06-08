@@ -1,5 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">PisPax</string>
-    <!-- El resto de strings se añadirán al implementar cada pantalla -->
+    <string name="app_tagline">Transporte inteligente de mercancías</string>
+
+    <!-- ── LOGIN ─────────────────────────────────────────────────────────── -->
+    <string name="login_email_hint">Correo electrónico</string>
+    <string name="login_password_hint">Contraseña</string>
+    <string name="login_btn">Entrar</string>
+    <string name="login_sin_cuenta">¿No tienes cuenta? <b>Regístrate</b></string>
+    <string name="login_error_campos">Completa todos los campos</string>
+    <string name="login_error_credenciales">Email o contraseña incorrectos</string>
+
+    <!-- ── REGISTRO ───────────────────────────────────────────────────────── -->
+    <string name="registro_titulo">Crear cuenta</string>
+    <string name="registro_nombre_hint">Nombre</string>
+    <string name="registro_apellidos_hint">Apellidos</string>
+    <string name="registro_email_hint">Correo electrónico</string>
+    <string name="registro_password_hint">Contraseña (mín. 8 caracteres)</string>
+    <string name="registro_telefono_hint">Teléfono (opcional)</string>
+    <string name="registro_rol_cliente">Soy cliente</string>
+    <string name="registro_rol_transportista">Soy transportista</string>
+    <string name="registro_btn">Crear cuenta</string>
+    <string name="registro_ya_cuenta">¿Ya tienes cuenta? <b>Inicia sesión</b></string>
+    <string name="registro_ok">Cuenta creada. ¡Bienvenido/a!</string>
+
+    <!-- ── HOME CLIENTE ───────────────────────────────────────────────────── -->
+    <string name="home_cliente_saludo">Hola, %s</string>
+    <string name="home_cliente_subtitulo">¿Qué necesitas enviar hoy?</string>
+    <string name="home_cliente_btn_nuevo">Nuevo viaje</string>
+    <string name="home_cliente_viajes_activos">Tus viajes activos</string>
+    <string name="home_cliente_ver_todos">Ver todos mis viajes</string>
+    <string name="home_sin_viajes">Sin viajes activos</string>
+
+    <!-- ── HOME TRANSPORTISTA ─────────────────────────────────────────────── -->
+    <string name="home_trans_saludo">Hola, %s</string>
+    <string name="home_trans_subtitulo">¿Listo para trabajar?</string>
+    <string name="home_trans_btn_disponibles">Ver viajes disponibles</string>
+    <string name="home_trans_en_curso">Tus viajes en curso</string>
+    <string name="home_trans_ver_todos">Ver todos mis viajes</string>
+    <string name="home_trans_vehiculos">Mis vehículos</string>
+
+    <!-- ── VIAJE — GENERAL ────────────────────────────────────────────────── -->
+    <string name="viaje_desde">Desde</string>
+    <string name="viaje_hasta">Hasta</string>
+    <string name="viaje_peso">Peso</string>
+    <string name="viaje_mercancia">Mercancía</string>
+    <string name="viaje_estado">Estado</string>
+    <string name="viaje_cliente">Cliente</string>
+    <string name="viaje_transportista">Transportista</string>
+    <string name="viaje_vehiculo">Vehículo</string>
+
+    <!-- ── ESTADOS DE VIAJE ───────────────────────────────────────────────── -->
+    <string name="estado_pendiente">Pendiente</string>
+    <string name="estado_aceptado">Aceptado</string>
+    <string name="estado_salida_recogida">Salida a recogida</string>
+    <string name="estado_llegada_recogida">Llegada a recogida</string>
+    <string name="estado_mercancia_recogida">Mercancía cargada</string>
+    <string name="estado_salida_entrega">En ruta a destino</string>
+    <string name="estado_llegada_entrega">Llegada a destino</string>
+    <string name="estado_completado">Completado</string>
+    <string name="estado_cancelado">Cancelado</string>
+
+    <!-- ── CREAR VIAJE ────────────────────────────────────────────────────── -->
+    <string name="crear_viaje_titulo">Nuevo viaje</string>
+    <string name="crear_viaje_tipo_hint">Tipo de mercancía</string>
+    <string name="crear_viaje_desc_hint">Descripción (opcional)</string>
+    <string name="crear_viaje_recogida_hint">Dirección de recogida</string>
+    <string name="crear_viaje_entrega_hint">Dirección de entrega</string>
+    <string name="crear_viaje_peso_hint">Peso en kg</string>
+    <string name="crear_viaje_btn">Solicitar viaje</string>
+    <string name="crear_viaje_ok">Viaje creado. ¡Buscando transportista!</string>
+
+    <!-- ── MAPA / SIMULACIÓN ──────────────────────────────────────────────── -->
+    <string name="mapa_btn_simular">Iniciar simulación</string>
+    <string name="mapa_simulando">Simulación en curso…</string>
+    <string name="mapa_completado">¡Viaje completado!</string>
+    <string name="mapa_titulo">Seguimiento del viaje</string>
+
+    <!-- ── VEHÍCULOS ──────────────────────────────────────────────────────── -->
+    <string name="vehiculos_titulo">Mis vehículos</string>
+    <string name="vehiculos_sin">No tienes vehículos registrados</string>
+    <string name="crear_vehiculo_titulo">Añadir vehículo</string>
+    <string name="crear_vehiculo_btn">Registrar vehículo</string>
+    <string name="crear_vehiculo_ok">Vehículo registrado correctamente</string>
+
+    <!-- ── GENERAL ─────────────────────────────────────────────────────────── -->
+    <string name="cerrar_sesion">Cerrar sesión</string>
+    <string name="error_red">Sin conexión. Revisa tu red.</string>
+    <string name="error_servidor">Error del servidor. Inténtalo de nuevo.</string>
+    <string name="cargando">Cargando…</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="kg_formato">%s kg</string>
 </resources>

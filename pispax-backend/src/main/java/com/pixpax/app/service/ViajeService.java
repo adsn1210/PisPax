@@ -1,5 +1,9 @@
 package com.pixpax.app.service;
 
+// Servicio central de la aplicación: contiene toda la lógica de negocio de los viajes.
+// Aquí se crean viajes, se aceptan, se avanza su estado y se valida que nadie haga
+// transiciones ilegales (ej: saltar de PENDIENTE a COMPLETADO directamente).
+
 import com.pixpax.app.dto.ViajeDTO;
 import com.pixpax.app.dto.request.AceptarViajeRequest;
 import com.pixpax.app.dto.request.ActualizarEstadoRequest;
@@ -10,16 +14,17 @@ import com.pixpax.app.enums.Rol;
 import com.pixpax.app.repository.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class ViajeService {
 
-    // Transiciones válidas en orden
+    // El orden correcto de estados de un viaje. Se usa para validar que la transición
+    // pedida es la siguiente del flujo y no un salto o un retroceso.
     private static final List<EstadoViaje> FLUJO_NORMAL = List.of(
             EstadoViaje.PENDIENTE,
             EstadoViaje.ACEPTADO,
@@ -46,6 +51,7 @@ public class ViajeService {
         this.tipoMercanciaRepository = tipoMercanciaRepository;
     }
 
+    @Transactional(readOnly = true)
     public List<ViajeDTO> getMisViajes(Long usuarioId) {
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
@@ -57,11 +63,13 @@ public class ViajeService {
         }
     }
 
+    @Transactional(readOnly = true)
     public List<ViajeDTO> getViajesDisponibles(Long transportistaId) {
-        return viajeRepository.findViajesDisponiblesParaTransportista(transportistaId)
+        return viajeRepository.findByEstado(EstadoViaje.PENDIENTE)
                 .stream().map(ViajeDTO::new).toList();
     }
 
+    @Transactional
     public ViajeDTO crearViaje(CrearViajeRequest request, Long clienteId) {
         Usuario cliente = usuarioRepository.findById(clienteId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente no encontrado"));
@@ -86,6 +94,7 @@ public class ViajeService {
         return new ViajeDTO(viajeRepository.save(viaje));
     }
 
+    @Transactional
     public ViajeDTO aceptarViaje(Long viajeId, AceptarViajeRequest request, Long transportistaId) {
         Viaje viaje = viajeRepository.findById(viajeId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Viaje no encontrado"));
@@ -116,11 +125,12 @@ public class ViajeService {
         return new ViajeDTO(viajeRepository.save(viaje));
     }
 
+    @Transactional
     public ViajeDTO actualizarEstado(Long viajeId, ActualizarEstadoRequest request, Long transportistaId) {
         Viaje viaje = viajeRepository.findById(viajeId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Viaje no encontrado"));
 
-        if (!viaje.getTransportista().getId().equals(transportistaId)) {
+        if (viaje.getTransportista() == null || !viaje.getTransportista().getId().equals(transportistaId)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "No tienes permiso para actualizar este viaje");
         }
 
@@ -137,10 +147,48 @@ public class ViajeService {
         return new ViajeDTO(viajeRepository.save(viaje));
     }
 
-    public ViajeDTO getDetalle(Long viajeId) {
-        return viajeRepository.findById(viajeId)
-                .map(ViajeDTO::new)
+    @Transactional(readOnly = true)
+    public ViajeDTO getDetalle(Long viajeId, Long usuarioId, Rol rolUsuario) {
+        Viaje viaje = viajeRepository.findById(viajeId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Viaje no encontrado"));
+
+        boolean tieneAcceso;
+        if (rolUsuario == Rol.CLIENTE) {
+            tieneAcceso = viaje.getCliente().getId().equals(usuarioId);
+        } else {
+            // TRANSPORTISTA: puede ver sus viajes asignados o cualquier viaje disponible (PENDIENTE)
+            boolean esTransportistaAsignado = viaje.getTransportista() != null
+                    && viaje.getTransportista().getId().equals(usuarioId);
+            tieneAcceso = esTransportistaAsignado || viaje.getEstado() == EstadoViaje.PENDIENTE;
+        }
+
+        if (!tieneAcceso) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "No tienes permiso para ver este viaje");
+        }
+
+        return new ViajeDTO(viaje);
+    }
+
+    public void verificarPuedeSimular(Long viajeId, Long transportistaId) {
+        Viaje viaje = viajeRepository.findById(viajeId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Viaje no encontrado"));
+
+        EstadoViaje estado = viaje.getEstado();
+
+        if (estado != EstadoViaje.PENDIENTE && estado != EstadoViaje.ACEPTADO) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT,
+                    "Solo se puede simular un viaje en estado PENDIENTE o ACEPTADO");
+        }
+
+        // Si ya está aceptado, solo el transportista asignado puede simularlo
+        if (estado == EstadoViaje.ACEPTADO) {
+            boolean esElAsignado = viaje.getTransportista() != null
+                    && viaje.getTransportista().getId().equals(transportistaId);
+            if (!esElAsignado) {
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                        "Solo el transportista asignado puede simular este viaje");
+            }
+        }
     }
 
     private void validarTransicion(EstadoViaje actual, EstadoViaje nuevo) {

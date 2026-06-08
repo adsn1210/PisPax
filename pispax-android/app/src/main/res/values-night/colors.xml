@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- MODO OSCURO: sobreescribe los colores de values/colors.xml en tema dark -->
+<resources>
+
+    <!-- El naranja de acción se mantiene igual en ambos modos -->
+    <color name="naranja_principal">#FF8E3B</color>
+    <color name="naranja_dark">#E07020</color>
+    <color name="navy_secundario">#16142E</color>
+
+    <!-- ── FONDOS MODO OSCURO ────────────────────────────────────────────── -->
+    <!-- Fondo general: negro Material (no negro puro, más suave para la vista) -->
+    <color name="bg_principal">#121212</color>
+    <!-- Fondo de cards: nivel 1 de elevación Material dark -->
+    <color name="bg_card">#1E1E1E</color>
+    <!-- Fondo de campos de texto -->
+    <color name="bg_campo">#2C2C2C</color>
+    <!-- Texto principal sobre fondo oscuro -->
+    <color name="texto_primario">#EFEFEF</color>
+    <!-- Texto secundario sobre fondo oscuro -->
+    <color name="texto_secundario">#9E9E9E</color>
+    <!-- Texto sobre botón naranja (siempre blanco) -->
+    <color name="texto_sobre_naranja">#FFFFFF</color>
+    <!-- Divisores sutiles en modo oscuro -->
+    <color name="divider">#303030</color>
+    <!-- Overlay en modo oscuro -->
+    <color name="overlay">#55000000</color>
+
+    <!-- Alias compatibles -->
+    <color name="blanco">#FFFFFF</color>
+    <color name="bg_gris">#121212</color>
+
+    <!-- ── ESTADOS DE VIAJE (adaptados al modo oscuro) ───────────────────── -->
+    <color name="estado_pendiente_bg">#3E2600</color>
+    <color name="estado_pendiente_text">#FFB74D</color>
+    <color name="estado_activo_bg">#0D2744</color>
+    <color name="estado_activo_text">#64B5F6</color>
+    <color name="estado_completado_bg">#0D3318</color>
+    <color name="estado_completado_text">#81C784</color>
+    <color name="estado_cancelado_bg">#3E0D0D</color>
+    <color name="estado_cancelado_text">#EF9A9A</color>
+
+</resources>

@@ -1,5 +1,9 @@
 package com.pixpax.app.dto;
 
+// DTO (Data Transfer Object) del usuario: lo que se devuelve al cliente Android.
+// Nunca incluye el passwordHash, así la contraseña jamás sale del servidor.
+// Se construye a partir de la entidad Usuario (ver constructor de abajo).
+
 import com.pixpax.app.entity.Usuario;
 import com.pixpax.app.enums.Rol;
 import lombok.Getter;

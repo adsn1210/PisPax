@@ -1,5 +1,8 @@
 package com.pixpax.app.dto;
 
+// DTO del vehículo: datos del vehículo que se devuelven al cliente Android.
+// Se construye a partir de la entidad Vehiculo para no exponer la entidad JPA directamente.
+
 import com.pixpax.app.entity.Vehiculo;
 import com.pixpax.app.enums.CarnetRequerido;
 import com.pixpax.app.enums.TipoVehiculo;

@@ -1,11 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- CrearViajeActivity: tipo mercancía (Spinner), descripción, dir. recogida, -->
-<!-- dir. entrega, peso kg, botón Crear Viaje. -->
-<!-- TODO: diseño pendiente -->
-<androidx.constraintlayout.widget.ConstraintLayout
+<!--
+    CREAR VIAJE — Formulario para que el CLIENTE solicite un viaje.
+
+    ELEMENTOS MODIFICABLES ESTÉTICAMENTE:
+    - btn_volver         → Botón de retroceso
+    - tv_titulo          → Título "Nuevo viaje"
+    - spinner_mercancia  → Spinner de tipo de mercancía (estilo en el Activity)
+    - til_descripcion    → Campo de descripción opcional
+    - til_recogida       → Campo dirección de recogida
+    - til_entrega        → Campo dirección de entrega
+    - til_peso           → Campo peso en kg
+    - btn_crear          → Botón de acción principal "Solicitar viaje"
+-->
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_gris"
-    android:padding="@dimen/padding_normal">
-</androidx.constraintlayout.widget.ConstraintLayout>
+    android:background="@color/bg_principal"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_large">
+
+        <!-- TOOLBAR MANUAL (título + botón atrás) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="20dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_volver"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:icon="@drawable/ic_arrow_back"
+                app:iconSize="22dp"
+                app:iconTint="@color/naranja_principal" />
+
+            <!-- TÍTULO -->
+            <!-- MODIFICAR: textSize, fontFamily, color -->
+            <TextView
+                android:id="@+id/tv_titulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/crear_viaje_titulo"
+                android:textColor="@color/texto_primario"
+                android:textSize="22sp"
+                android:fontFamily="sans-serif-bold" />
+
+        </LinearLayout>
+
+        <!-- CARD DEL FORMULARIO -->
+        <!-- MODIFICAR: cardCornerRadius, cardElevation -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/corner_radius"
+            app:cardElevation="@dimen/card_elevation"
+            app:cardBackgroundColor="@color/bg_card">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TIPO DE MERCANCÍA"
+                    android:textColor="@color/texto_secundario"
+                    android:textSize="11sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.08"
+                    android:layout_marginBottom="6dp" />
+
+                <!-- SPINNER TIPO DE MERCANCÍA -->
+                <!-- MODIFICAR: estilo del fondo del spinner (background drawable) -->
+                <Spinner
+                    android:id="@+id/spinner_mercancia"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="@drawable/bg_spinner_field"
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="0dp"
+                    android:popupBackground="@color/bg_card" />
+
+                <!-- CAMPO DESCRIPCIÓN (opcional) -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_descripcion"
+                    style="@style/Widget.Pispax.TextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/crear_viaje_desc_hint"
+                    android:layout_marginTop="16dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_descripcion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:lines="2"
+                        android:textColor="@color/texto_primario" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- CAMPO DIRECCIÓN RECOGIDA -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_recogida"
+                    style="@style/Widget.Pispax.TextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/crear_viaje_recogida_hint"
+                    android:layout_marginTop="12dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_recogida"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPostalAddress"
+                        android:textColor="@color/texto_primario" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- CAMPO DIRECCIÓN ENTREGA -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_entrega"
+                    style="@style/Widget.Pispax.TextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/crear_viaje_entrega_hint"
+                    android:layout_marginTop="12dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_entrega"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPostalAddress"
+                        android:textColor="@color/texto_primario" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- CAMPO PESO -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_peso"
+                    style="@style/Widget.Pispax.TextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/crear_viaje_peso_hint"
+                    android:layout_marginTop="12dp"
+                    app:suffixText="kg">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_peso"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:textColor="@color/texto_primario" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- BOTÓN SOLICITAR VIAJE -->
+                <!-- MODIFICAR: estilo, texto del botón de envío -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_crear"
+                    style="@style/Widget.Pispax.Button.Primary"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/btn_altura"
+                    android:text="@string/crear_viaje_btn"
+                    android:layout_marginTop="24dp" />
+
+                <!-- INDICADOR DE CARGA -->
+                <ProgressBar
+                    android:id="@+id/progress_crear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:indeterminateTint="@color/naranja_principal"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="12dp" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

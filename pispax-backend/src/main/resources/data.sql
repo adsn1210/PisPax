@@ -1,4 +1,4 @@
--- Catálogo de tipos de mercancía (12 tipos v3.0)
+-- Catálogo de tipos de mercancía (12 tipos v3)
 -- Se ejecuta automáticamente en el primer arranque (spring.jpa.hibernate.ddl-auto=update)
 
 INSERT IGNORE INTO tipo_mercancia (id, nombre, nombre_db, descripcion) VALUES

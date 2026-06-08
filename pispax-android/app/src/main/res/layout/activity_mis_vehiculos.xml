@@ -1,9 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- MisVehiculosActivity: RecyclerView de vehículos + FAB para añadir. -->
-<!-- TODO: diseño pendiente -->
-<androidx.constraintlayout.widget.ConstraintLayout
+<!--
+    MIS VEHÍCULOS — Lista de vehículos del transportista + FAB para añadir.
+
+    ELEMENTOS MODIFICABLES ESTÉTICAMENTE:
+    - tv_titulo_vehiculos → Título
+    - rv_vehiculos        → RecyclerView de tarjetas de vehículo
+    - fab_anadir          → FAB "+" para ir a CrearVehiculoActivity
+    - tv_sin_vehiculos    → Estado vacío
+-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_gris">
-</androidx.constraintlayout.widget.ConstraintLayout>
+    android:background="@color/bg_principal">
+
+    <!-- TOOLBAR -->
+    <!-- MODIFICAR: color de fondo, paddingTop -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/navy_secundario"
+        android:paddingStart="8dp"
+        android:paddingEnd="@dimen/padding_normal"
+        android:paddingTop="40dp"
+        android:paddingBottom="12dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_volver"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:icon="@drawable/ic_arrow_back"
+            app:iconSize="22dp"
+            app:iconTint="@color/blanco" />
+
+        <TextView
+            android:id="@+id/tv_titulo_vehiculos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/vehiculos_titulo"
+            android:textColor="@color/blanco"
+            android:textSize="19sp"
+            android:fontFamily="sans-serif-bold" />
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_vehiculos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:indeterminateTint="@color/naranja_principal"
+        android:layout_gravity="center"
+        android:layout_marginTop="32dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_vehiculos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="@dimen/padding_large"
+        android:paddingTop="@dimen/padding_normal"
+        android:paddingBottom="80dp"
+        android:clipToPadding="false" />
+
+    <!-- ESTADO VACÍO -->
+    <!-- MODIFICAR: texto y diseño del estado vacío de vehículos -->
+    <TextView
+        android:id="@+id/tv_sin_vehiculos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/vehiculos_sin"
+        android:textColor="@color/texto_secundario"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:padding="@dimen/padding_large"
+        android:visibility="gone" />
+
+    <!-- FAB AÑADIR VEHÍCULO -->
+    <!-- MODIFICAR: backgroundTint, tamaño (fabSize), icono del FAB -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_anadir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/padding_large"
+        app:backgroundTint="@color/naranja_principal"
+        app:tint="@color/blanco"
+        app:srcCompat="@android:drawable/ic_input_add"
+        app:fabSize="normal" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

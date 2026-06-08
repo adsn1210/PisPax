@@ -1,5 +1,9 @@
 package com.pixpax.app.dto.request;
 
+// JSON que recibe el servidor al registrar un nuevo usuario.
+// Todos los campos tienen validación automática: si falta alguno obligatorio
+// o tiene mal formato, el servidor responde con error 400 sin ejecutar nada.
+
 import com.pixpax.app.enums.Rol;
 import jakarta.validation.constraints.*;
 import lombok.Getter;

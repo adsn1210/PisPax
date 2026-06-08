@@ -1,11 +1,271 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- CrearVehiculoActivity: matrícula, marca, modelo, tipo (Spinner), -->
-<!-- capacidad kg, carnet (Spinner), botón Guardar. -->
-<!-- TODO: diseño pendiente -->
-<androidx.constraintlayout.widget.ConstraintLayout
+<!--
+    CREAR VEHÍCULO — Formulario para registrar un vehículo (solo TRANSPORTISTA).
+
+    ELEMENTOS MODIFICABLES ESTÉTICAMENTE:
+    - til_matricula      → Campo matrícula
+    - til_marca          → Campo marca
+    - til_modelo         → Campo modelo
+    - spinner_tipo       → Spinner tipo de vehículo
+    - til_subtipo        → Campo subtipo opcional
+    - til_tara           → Campo tara kg (opcional)
+    - til_capacidad      → Campo capacidad kg
+    - til_mma            → Campo MMA kg (opcional)
+    - spinner_carnet     → Spinner carnet requerido
+    - btn_guardar        → Botón de acción principal
+-->
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_gris"
-    android:padding="@dimen/padding_normal">
-</androidx.constraintlayout.widget.ConstraintLayout>
+    android:background="@color/bg_principal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_large">
+
+        <!-- TOOLBAR MANUAL -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="20dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_volver"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:icon="@drawable/ic_arrow_back"
+                app:iconSize="22dp"
+                app:iconTint="@color/naranja_principal" />
+
+            <!-- TÍTULO -->
+            <!-- MODIFICAR: textSize, fontFamily, color -->
+            <TextView
+                android:id="@+id/tv_titulo_vehiculo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/crear_vehiculo_titulo"
+                android:textColor="@color/texto_primario"
+                android:textSize="22sp"
+                android:fontFamily="sans-serif-bold" />
+
+        </LinearLayout>
+
+        <!-- CARD DEL FORMULARIO -->
+        <!-- MODIFICAR: cardCornerRadius, cardElevation -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/corner_radius"
+            app:cardElevation="@dimen/card_elevation"
+            app:cardBackgroundColor="@color/bg_card">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <!-- MATRÍCULA -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_matricula"
+                    style="@style/Widget.Pispax.TextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Matrícula">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_matricula"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapCharacters"
+                        android:textColor="@color/texto_primario" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- MARCA + MODELO en fila -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="12dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_marca"
+                        style="@style/Widget.Pispax.TextInputLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Marca"
+                        android:layout_marginEnd="6dp">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_marca"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/texto_primario" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_modelo"
+                        style="@style/Widget.Pispax.TextInputLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Modelo"
+                        android:layout_marginStart="6dp">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_modelo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/texto_primario" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TIPO DE VEHÍCULO"
+                    android:textColor="@color/texto_secundario"
+                    android:textSize="11sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.08"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="6dp" />
+
+                <!-- MODIFICAR: estilo del spinner de tipo de vehículo -->
+                <Spinner
+                    android:id="@+id/spinner_tipo"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="@drawable/bg_spinner_field"
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="0dp"
+                    android:popupBackground="@color/bg_card" />
+
+                <!-- SUBTIPO (opcional) -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_subtipo"
+                    style="@style/Widget.Pispax.TextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Subtipo (ej: frigorífico)"
+                    android:layout_marginTop="12dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_subtipo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/texto_primario" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- CAPACIDAD KG (obligatorio) + TARA KG (opcional) -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="12dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_capacidad"
+                        style="@style/Widget.Pispax.TextInputLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Capacidad (kg)"
+                        android:layout_marginEnd="6dp"
+                        app:suffixText="kg">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_capacidad"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:textColor="@color/texto_primario" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_tara"
+                        style="@style/Widget.Pispax.TextInputLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Tara (opcional)"
+                        android:layout_marginStart="6dp"
+                        app:suffixText="kg">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_tara"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:textColor="@color/texto_primario" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <!-- MMA KG (opcional) -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_mma"
+                    style="@style/Widget.Pispax.TextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="MMA kg (opcional)"
+                    android:layout_marginTop="12dp"
+                    app:suffixText="kg">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_mma"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:textColor="@color/texto_primario" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CARNET REQUERIDO"
+                    android:textColor="@color/texto_secundario"
+                    android:textSize="11sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.08"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="6dp" />
+
+                <!-- MODIFICAR: estilo del spinner de carnet -->
+                <Spinner
+                    android:id="@+id/spinner_carnet"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="@drawable/bg_spinner_field"
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="0dp"
+                    android:popupBackground="@color/bg_card" />
+
+                <!-- BOTÓN GUARDAR -->
+                <!-- MODIFICAR: estilo y texto del botón de guardar vehículo -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_guardar"
+                    style="@style/Widget.Pispax.Button.Primary"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/btn_altura"
+                    android:text="@string/crear_vehiculo_btn"
+                    android:layout_marginTop="24dp" />
+
+                <!-- INDICADOR DE CARGA -->
+                <ProgressBar
+                    android:id="@+id/progress_vehiculo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:indeterminateTint="@color/naranja_principal"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="12dp" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

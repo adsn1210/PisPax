@@ -1,10 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- MapaViajeActivity: mapa OSMDroid (parte superior) + timeline de estados. -->
-<!-- Botón "Iniciar simulación" que llama a POST /api/viajes/{id}/simular. -->
-<!-- TODO: diseño pendiente (ver PLANTEAMIENTO_SIMULACION_VIAJE.md) -->
+<!--
+    MAPA VIAJE — Pantalla de seguimiento y simulación del viaje.
+    60% mapa OSMDroid arriba + 40% panel inferior con timeline y controles.
+
+    ELEMENTOS MODIFICABLES ESTÉTICAMENTE:
+    - map_view           → Mapa OSMDroid (altura relativa)
+    - btn_volver_mapa    → Botón flotante sobre el mapa para volver atrás
+    - tv_estado_mapa     → Badge de estado actual sobre el mapa
+    - card_panel_info    → Card inferior con info del viaje (cornerRadius, elevation)
+    - tv_ruta_mapa       → Ruta del viaje (origen → destino)
+    - tv_peso_mapa       → Peso de la mercancía
+    - rv_timeline        → RecyclerView con el timeline de estados
+    - btn_simular        → BOTÓN de inicio de simulación (naranja grande)
+    - progress_simular   → Indicador de carga durante la simulación
+-->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_gris">
+    android:background="@color/bg_principal">
+
+    <!-- MAPA OSMDroid (ocupa el 60% superior de la pantalla) -->
+    <!-- MODIFICAR: layout_height con un porcentaje diferente para dar más o menos espacio al mapa -->
+    <org.osmdroid.views.MapView
+        android:id="@+id/map_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/card_panel_info"
+        android:layout_marginBottom="-20dp" />
+
+    <!-- FAB volver: chevron, sobre el mapa -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_volver_mapa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_arrow_back"
+        app:backgroundTint="@color/bg_card"
+        app:tint="@color/texto_primario"
+        app:fabSize="mini"
+        app:elevation="4dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="44dp"
+        android:layout_marginStart="16dp" />
+
+    <!-- BADGE DE ESTADO ACTUAL (flotante sobre el mapa, esquina superior derecha) -->
+    <!-- MODIFICAR: textSize, padding, color del badge de estado -->
+    <TextView
+        android:id="@+id/tv_estado_mapa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PENDIENTE"
+        android:textSize="12sp"
+        android:fontFamily="sans-serif-bold"
+        android:textColor="@color/estado_pendiente_text"
+        android:background="@color/estado_pendiente_bg"
+        android:paddingHorizontal="14dp"
+        android:paddingVertical="6dp"
+        android:layout_margin="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="16dp" />
+
+    <!-- PANEL INFERIOR con info + timeline + botón simulación -->
+    <!-- MODIFICAR: cardCornerRadius del panel inferior, elevation -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_panel_info"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="12dp"
+        app:cardBackgroundColor="@color/bg_card"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.45">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/padding_large"
+                android:paddingTop="@dimen/padding_large"
+                android:paddingBottom="@dimen/padding_normal">
+
+                <!-- Handle del panel deslizante -->
+                <View
+                    android:layout_width="36dp"
+                    android:layout_height="4dp"
+                    android:background="@color/divider"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="14dp" />
+
+                <!-- RUTA RESUMIDA -->
+                <!-- MODIFICAR: textSize, color del resumen de ruta -->
+                <TextView
+                    android:id="@+id/tv_ruta_mapa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Origen → Destino"
+                    android:textColor="@color/texto_primario"
+                    android:textSize="15sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:layout_marginBottom="4dp" />
+
+                <!-- PESO DE LA CARGA -->
+                <!-- MODIFICAR: textSize, color del dato de peso en el panel -->
+                <TextView
+                    android:id="@+id/tv_peso_mapa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="— kg"
+                    android:textColor="@color/texto_secundario"
+                    android:textSize="13sp"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- TÍTULO DEL TIMELINE -->
+                <!-- MODIFICAR: textSize, color, margen del título de la sección timeline -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Progreso del viaje"
+                    android:textColor="@color/texto_primario"
+                    android:textSize="15sp"
+                    android:fontFamily="sans-serif-bold"
+                    android:layout_marginBottom="12dp" />
+
+                <!-- TIMELINE DE ESTADOS -->
+                <!-- RecyclerView con TimelineAdapter — cada ítem es un estado del viaje -->
+                <!-- MODIFICAR: el estilo de cada ítem del timeline en item_timeline.xml -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_timeline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false" />
+
+                <!-- BOTÓN INICIAR SIMULACIÓN -->
+                <!-- MODIFICAR: texto, estilo, tamaño, color del botón principal de simulación -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_simular"
+                    style="@style/Widget.Pispax.Button.Primary"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/btn_altura"
+                    android:text="@string/mapa_btn_simular"
+                    android:layout_marginTop="16dp"
+                    android:visibility="visible" />
+
+                <!-- INDICADOR DE SIMULACIÓN EN CURSO -->
+                <LinearLayout
+                    android:id="@+id/layout_simulando"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="12dp"
+                    android:visibility="gone">
+
+                    <ProgressBar
+                        android:id="@+id/progress_simular"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:indeterminateTint="@color/naranja_principal"
+                        android:layout_marginEnd="8dp" />
+
+                    <!-- TEXTO "Simulación en curso…" -->
+                    <!-- MODIFICAR: textSize, color del texto de estado de simulación -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mapa_simulando"
+                        android:textColor="@color/texto_secundario"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

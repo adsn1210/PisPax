@@ -1,9 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- ViajesDisponiblesActivity: RecyclerView con viajes PENDIENTES para el transportista. -->
-<!-- TODO: diseño pendiente -->
-<androidx.constraintlayout.widget.ConstraintLayout
+<!--
+    VIAJES DISPONIBLES — Lista de viajes PENDIENTE para el transportista.
+    Diseño idéntico a Mis Viajes pero con datos de viajes pendientes.
+
+    ELEMENTOS MODIFICABLES ESTÉTICAMENTE:
+    - tv_titulo_disp     → Título "Viajes disponibles"
+    - rv_disponibles     → RecyclerView de tarjetas de viaje disponibles
+    - btn_refresh        → Botón de refresco de la lista
+    - tv_sin_disponibles → Mensaje de estado vacío
+-->
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_gris">
-</androidx.constraintlayout.widget.ConstraintLayout>
+    android:orientation="vertical"
+    android:background="@color/bg_principal">
+
+    <!-- TOOLBAR -->
+    <!-- MODIFICAR: color de fondo, altura, paddingTop para status bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/navy_secundario"
+        android:paddingStart="8dp"
+        android:paddingEnd="@dimen/padding_normal"
+        android:paddingTop="40dp"
+        android:paddingBottom="12dp">
+
+        <!-- BOTÓN VOLVER -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_volver"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:icon="@drawable/ic_arrow_back"
+            app:iconSize="22dp"
+            app:iconTint="@color/blanco" />
+
+        <TextView
+            android:id="@+id/tv_titulo_disp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Viajes disponibles"
+            android:textColor="@color/blanco"
+            android:textSize="19sp"
+            android:fontFamily="sans-serif-bold" />
+
+        <!-- BOTÓN REFRESCAR -->
+        <!-- MODIFICAR: icono del botón de refresco -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_refresh"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:icon="@android:drawable/ic_menu_rotate"
+            app:iconSize="22dp"
+            app:iconTint="@color/blanco" />
+
+    </LinearLayout>
+
+    <!-- INDICADOR DE CARGA -->
+    <ProgressBar
+        android:id="@+id/progress_disponibles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:indeterminateTint="@color/naranja_principal"
+        android:layout_gravity="center"
+        android:layout_marginTop="32dp" />
+
+    <!-- RECYCLERVIEW CON VIAJES DISPONIBLES -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_disponibles"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingHorizontal="@dimen/padding_large"
+        android:paddingTop="@dimen/padding_normal"
+        android:paddingBottom="@dimen/padding_normal"
+        android:clipToPadding="false" />
+
+    <!-- ESTADO VACÍO -->
+    <!-- MODIFICAR: texto y diseño del estado sin viajes disponibles -->
+    <TextView
+        android:id="@+id/tv_sin_disponibles"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No hay viajes disponibles en este momento"
+        android:textColor="@color/texto_secundario"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:padding="@dimen/padding_large"
+        android:visibility="gone" />
+
+</LinearLayout>

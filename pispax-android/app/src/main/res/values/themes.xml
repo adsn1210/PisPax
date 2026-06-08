@@ -3,18 +3,71 @@
 
     <style name="Theme.Pispax" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/naranja_principal</item>
-        <item name="colorPrimaryVariant">@color/navy_secundario</item>
-        <item name="colorOnPrimary">@color/blanco</item>
+        <item name="colorPrimaryVariant">@color/naranja_dark</item>
+        <item name="colorOnPrimary">@color/texto_sobre_naranja</item>
         <item name="colorSecondary">@color/navy_secundario</item>
         <item name="colorOnSecondary">@color/blanco</item>
-        <item name="android:statusBarColor">@color/navy_secundario</item>
-        <item name="android:windowBackground">@color/bg_gris</item>
+        <item name="android:windowBackground">@color/bg_principal</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeSmall</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeMedium</item>
     </style>
 
-    <!-- Tema de la SplashActivity: fondo naranja, sin barra de estado visible -->
+    <style name="ShapeSmall">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="ShapeMedium">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">14dp</item>
+    </style>
+
+    <!-- Tema splash: fondo navy oscuro para más seriedad -->
     <style name="Theme.Pispax.Splash" parent="Theme.Pispax">
-        <item name="android:windowBackground">@color/naranja_principal</item>
-        <item name="android:statusBarColor">@color/naranja_principal</item>
+        <item name="android:windowBackground">@color/navy_secundario</item>
+        <item name="android:statusBarColor">@color/navy_secundario</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <!-- Botón primario: naranja, pill shape (28dp) -->
+    <style name="Widget.Pispax.Button.Primary" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/naranja_principal</item>
+        <item name="android:textColor">@color/texto_sobre_naranja</item>
+        <item name="cornerRadius">28dp</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:paddingBottom">14dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0.02</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+    </style>
+
+    <!-- Botón outline: contorno naranja, pill shape -->
+    <style name="Widget.Pispax.Button.Outline" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="strokeColor">@color/naranja_principal</item>
+        <item name="android:textColor">@color/naranja_principal</item>
+        <item name="cornerRadius">28dp</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+    </style>
+
+    <!-- Campo de texto: fondo relleno, esquinas redondeadas, sin borde inferior prominente -->
+    <style name="Widget.Pispax.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundColor">@color/bg_campo</item>
+        <item name="boxStrokeColor">@color/naranja_principal</item>
+        <item name="boxStrokeWidthFocused">2dp</item>
+        <item name="hintTextColor">@color/naranja_principal</item>
+        <item name="boxCornerRadiusTopStart">10dp</item>
+        <item name="boxCornerRadiusTopEnd">10dp</item>
+        <item name="boxCornerRadiusBottomStart">10dp</item>
+        <item name="boxCornerRadiusBottomEnd">10dp</item>
+        <item name="android:paddingBottom">0dp</item>
     </style>
 
 </resources>

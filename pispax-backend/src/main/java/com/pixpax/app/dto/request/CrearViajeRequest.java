@@ -1,5 +1,8 @@
 package com.pixpax.app.dto.request;
 
+// Datos que manda el cliente Android cuando quiere crear un nuevo viaje.
+// Solo puede usarlo un usuario con rol CLIENTE (controlado con @PreAuthorize en el controller).
+
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

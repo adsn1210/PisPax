@@ -1,5 +1,10 @@
 package com.pixpax.app.dto;
 
+// DTO del viaje: lo que se envía al cliente Android cuando pide datos de un viaje.
+// En vez de devolver las entidades JPA completas (con relaciones cargadas),
+// aquí solo se ponen los campos necesarios en formato plano (IDs, nombres, etc.).
+// Esto evita bucles de serialización y controla exactamente qué información sale.
+
 import com.pixpax.app.entity.Viaje;
 import com.pixpax.app.enums.EstadoViaje;
 import lombok.Getter;
