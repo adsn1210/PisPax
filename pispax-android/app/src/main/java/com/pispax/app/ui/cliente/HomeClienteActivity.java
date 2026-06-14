@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.widget.ImageButton;
 import com.google.android.material.button.MaterialButton;
 import com.pispax.app.R;
 import com.pispax.app.model.ViajeDTO;
@@ -34,7 +35,8 @@ public class HomeClienteActivity extends AppCompatActivity {
 
     // ── VISTAS (modificar estilo en activity_home_cliente.xml) ───────────────
     private TextView tvSaludo, tvSinViajes, btnVerTodos;
-    private MaterialButton btnNuevoViaje, btnToggleTema, btnCerrarSesion;
+    private MaterialButton btnNuevoViaje, btnCerrarSesion;
+    private ImageButton btnToggleTema;
     private RecyclerView rvViajesActivos;
     private ProgressBar progressViajes;
     private ViajesAdapter adapter;
@@ -154,6 +156,6 @@ public class HomeClienteActivity extends AppCompatActivity {
 
     private void actualizarIconoTema() {
         boolean dark = SessionManager.isDarkMode(this);
-        btnToggleTema.setIconResource(dark ? R.drawable.ic_light_mode : R.drawable.ic_dark_mode);
+        btnToggleTema.setImageResource(dark ? R.drawable.ic_light_mode : R.drawable.ic_dark_mode);
     }
 }

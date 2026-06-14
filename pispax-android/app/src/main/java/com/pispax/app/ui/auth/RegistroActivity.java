@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import android.widget.ImageButton;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.pispax.app.R;
@@ -29,7 +30,8 @@ public class RegistroActivity extends AppCompatActivity {
     // ── VISTAS (modificar estilo en activity_registro.xml) ───────────────────
     private TextInputEditText etNombre, etApellidos, etEmail, etPassword, etTelefono;
     private RadioGroup rgRol;
-    private MaterialButton btnRegistro, btnVolver, btnToggleTema;
+    private MaterialButton btnRegistro, btnVolver;
+    private ImageButton btnToggleTema;
     private ProgressBar progress;
 
     @Override

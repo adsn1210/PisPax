@@ -16,18 +16,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVerticalBias="0.42">
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView
-            android:id="@+id/tv_splash_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="PisPax"
-            android:textColor="@color/blanco"
-            android:textSize="52sp"
-            android:fontFamily="sans-serif-black"
-            android:letterSpacing="0.04" />
+        <ImageView
+            android:id="@+id/iv_splash_logo"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:src="@drawable/logo_naranja"
+            android:contentDescription="PisPax logo"
+            android:scaleType="fitCenter" />
 
         <!-- Línea naranja como acento de marca -->
         <View

@@ -8,6 +8,8 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
@@ -132,13 +134,16 @@ public class CrearVehiculoActivity extends AppCompatActivity {
                                     R.string.crear_vehiculo_ok, Toast.LENGTH_LONG).show();
                             // Cierra el formulario y vuelve a MisVehiculos (onResume recarga la lista)
                             finish();
-                        } else if (response.code() == 409) {
-                            // 409 Conflict = matricula ya registrada en el backend
-                            Toast.makeText(CrearVehiculoActivity.this,
-                                    "Matricula ya registrada", Toast.LENGTH_SHORT).show();
                         } else {
+                            // Leer el mensaje real que devuelve el backend
+                            String mensajeError = getString(R.string.error_servidor);
+                            try {
+                                String cuerpo = response.errorBody().string();
+                                JSONObject json = new JSONObject(cuerpo);
+                                mensajeError = json.getString("mensaje");
+                            } catch (Exception ignored) {}
                             Toast.makeText(CrearVehiculoActivity.this,
-                                    R.string.error_servidor, Toast.LENGTH_SHORT).show();
+                                    mensajeError, Toast.LENGTH_SHORT).show();
                         }
                     }
 

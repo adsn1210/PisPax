@@ -34,13 +34,16 @@ public class CrearVehiculoRequest {
     private String subtipo;
 
     @Positive
+    @DecimalMax(value = "999999.99", message = "La tara no puede superar 999.999 kg")
     private BigDecimal taraKg;
 
     @NotNull(message = "La capacidad es obligatoria")
     @Positive(message = "La capacidad debe ser mayor que 0")
+    @DecimalMax(value = "999999.99", message = "La capacidad no puede superar 999.999 kg")
     private BigDecimal capacidadKg;
 
     @Positive
+    @DecimalMax(value = "999999.99", message = "La MMA no puede superar 999.999 kg")
     private BigDecimal mmaKg;
 
     @NotNull(message = "El carnet requerido es obligatorio")

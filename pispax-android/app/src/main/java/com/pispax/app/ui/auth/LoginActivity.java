@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import android.widget.ImageButton;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -33,7 +34,8 @@ public class LoginActivity extends AppCompatActivity {
     // ── VISTAS (modificar estilo en activity_login.xml) ──────────────────────
     private TextInputEditText etEmail, etPassword;
     private TextInputLayout tilEmail, tilPassword;
-    private MaterialButton btnLogin, btnToggleTema;
+    private MaterialButton btnLogin;
+    private ImageButton btnToggleTema;
     private TextView tvRegistro;
     private ProgressBar progress;
 
@@ -80,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
     // Cambia el icono del boton toggle segun el modo actual
     private void actualizarIconoTema() {
         boolean dark = SessionManager.isDarkMode(this);
-        btnToggleTema.setIconResource(dark ? R.drawable.ic_light_mode : R.drawable.ic_dark_mode);
+        btnToggleTema.setImageResource(dark ? R.drawable.ic_light_mode : R.drawable.ic_dark_mode);
     }
 
     // ── Logica de login ───────────────────────────────────────────────────────
